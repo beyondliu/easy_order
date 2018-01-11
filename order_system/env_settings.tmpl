@@ -1,0 +1,99 @@
+import os
+
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+ALLOWED_HOSTS = []
+
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'order_system',                      # Or path to database file if using sqlite3.
+        'USER': 'username',                      # Not used with sqlite3.
+        'PASSWORD': 'passwd',                  # Not used with sqlite3.
+        'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+    }
+}
+
+
+MIDDLEWARE_CLASSES = (
+    
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware', 
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    # Uncomment the next line for simple clickjacking protection:
+    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+
+)
+
+DEBUG_TOOLBAR_PANELS = (
+
+    'debug_toolbar.panels.version.VersionDebugPanel',
+    'debug_toolbar.panels.timer.TimerDebugPanel',
+    #'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
+    'debug_toolbar.panels.headers.HeaderDebugPanel',
+    'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
+    'debug_toolbar.panels.template.TemplateDebugPanel',
+    'debug_toolbar.panels.sql.SQLDebugPanel',
+    'debug_toolbar.panels.signals.SignalDebugPanel',
+    #'debug_toolbar.panels.logger.LoggingPanel',
+
+)
+
+INSTALLED_APPS = (
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    # Uncomment the next line to enable the admin:
+    # 'django.contrib.admin',
+    # Uncomment the next line to enable admin documentation:
+    # 'django.contrib.admindocs',
+
+    'order',
+    'product_order',
+    'service_order',
+    'snapshot',
+
+    'south',
+    'debug_toolbar',
+)
+
+SMS_USER = ''
+SMS_PASS = ''
+SMS_PROID = ''
+SMS_X_URL = ""
+SMS_MANY_URL = ""
+
+
+SMS_CONTENT_FOR_SINGLE_SERVICE = u'Your purchase %s,its consumpation code is:%s  valid until %s'.encode('utf-8')
+SMS_CONTENT_FOR_MULTIPLE_SERVICE = u'Your purchase %s,its consumpation code is:%s  valid until %s, other %d comsumption codes can be viewed on your online profile'.encode('utf-8') 
+
+
+ORDER_SYSTEM_DEMO = True
+INTERVAL_FOR_DEMO = 120
+WAIT_FOR_EXTENDING_INTERVAL_FOR_DEMO = 60
+INTERVAL_OF_EXTENDING_FOR_DEMO = 20
+
+PAYMENT_WAITING_PERIOD = 24*60*60
+SELLER_NO_RESPONSE_WAITING_PERIOD = 3*24*60*60
+BUYER_NO_RESPONSE_WAITING_PERIOD = 3*24*60*60
+WAIT_FOR_EXTENDING_INTERVAL_WAITING_PERIOD = 7*24*60*60
+LENGTH_OF_EXTENDING_AUTO_ACK_SHIPPING = 3*24*60*60 
+AUTO_ACK_SHIPPING_WAITING_PERIOD = 15*24*60*60
+NO_REFUND_REQUST_AFTER_ST_WAITING_PERIOD = 7*24*60*60
+
+
+DEFAULT_LENGTH_OF_ATTENDANCE_CODE = 10
+
+
+CELERY_MONITOR_SITE = 'http://localhost:9998/tasks'
